@@ -4,6 +4,8 @@
 
 **data/phage_counts.csv** contains gut metagenomic shotgun reads that were assigned to division phages from study of newly diagnosed T2D patients receiving either metformin or placebo (study accession: PRJNA361402). Samples were collected at three timepoints: before treatments, 2 months after start of treatment and 4 months after start of treatment. All patients were also on calorie restriction diet during the study.
 
+Viral sequences identification and taxonomic assignment was done using virome_quant bioinformatic workflow (https://github.com/avilab/vs).
+
 phage_counts data is a 2% sample from full dataset and contains 6 variables: 
 
 - *subject*: patient id.
