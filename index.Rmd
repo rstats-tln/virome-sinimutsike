@@ -9,19 +9,58 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## R Markdown
-
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
-
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+## Import
 
 ```{r}
 library(tidyverse)
 library(readr)
+library(dplyr)
+
 
 ```
 
 
 ```{r}
-phage_counts
+library_size <- read_csv("data/library_size.csv")
+View(library_size)
+phage_counts <- read_csv("data/phage_counts.csv")
+View(phage_counts)
 ```
+```{r}
+phage_counts %>% 
+    group_by(parent_tax_id) %>% 
+    summarise(n = n())
+```
+
+```{r}
+phage_counts %>% group_by(arm) %>% summarise(n=n()) -> query_count
+phage_counts %>% group_by(arm, parent_tax_id, timepoint) %>% summarise(n=n()) -> tax_count
+tax_count
+```
+
+```{r}
+sort1 <- tax_count[order(n, arm, decreasing = TRUE), ]
+sort2 <- sort1[1:60, ]
+sort2
+
+```
+
+```{r}
+tax_count %>% 
+    group_by(arm, timepoint) %>% 
+    top_n(10, n) %>% 
+    ggplot(aes(factor(parent_tax_id), n, fill = arm)) +
+    geom_col(position = "dodge") +
+    facet_wrap(~timepoint)+
+    theme(axis.text.x = element_text(angle = 90))
+```
+
+
+```{r}
+ggplot(sort2, aes(as.character(parent_tax_id), n, fill=arm))+geom_bar(stat="identity", position="dodge") + labs(x = "parent_tax_id", y = "Count")
+
+```
+
+
+
+
