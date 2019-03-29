@@ -38,7 +38,7 @@ phage_counts %>% group_by(arm, parent_tax_id, timepoint) %>% summarise(n=n()) ->
 tax_count
 ```
 
-```{r}
+```{r, eval=FALSE}
 sort1 <- tax_count[order(n, arm, decreasing = TRUE), ]
 sort2 <- sort1[1:60, ]
 sort2
@@ -55,7 +55,7 @@ tax_count %>%
 ```
 
 
-```{r}
+```{r, eval=FALSE}
 ggplot(sort2, aes(as.character(parent_tax_id), n, fill=arm))+geom_bar(stat="identity", position="dodge") + labs(x = "parent_tax_id", y = "Count")
 
 ```
