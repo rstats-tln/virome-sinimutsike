@@ -19,3 +19,6 @@ Data can be summarised either at the level of taxon_id or parent_taxon_id.
 
 **data/library_size.csv** number of total sequencing reads in metagenomic shotgun library (can be used for normalisation). Note that phage_counts is a 2% sample.
 
+1)import data
+2)summarize
+3)visualize
